@@ -36,3 +36,34 @@ Completing the project involves several steps:
 6. Create a CodeBuild stage which will build, test, and deploy your code.
 
 For more detail about each of these steps, see the project lesson [here](https://classroom.udacity.com/nanodegrees/nd004/parts/1d842ebf-5b10-4749-9e5e-ef28fe98f173/modules/ac13842f-c841-4c1a-b284-b47899f4613d/lessons/becb2dac-c108-4143-8f6c-11b30413e28d/concepts/092cdb35-28f7-4145-b6e6-6278b8dd7527).
+
+## Steps
+Refer to instructions:
+
+https://github.com/jungleBadger/FSND-Deploy-Flask-App-to-Kubernetes-Using-EKS/blob/master/troubleshooting/deploy.md
+
+## Results
+
+### Grab the EKS Cluster endpoint URL
+You can just fetch the URL with the command below if everything went smooth as expected
+'''
+kubectl get services simple-jwt-api -o wide
+'''
+
+NAME             TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)        AGE   SELECTOR
+simple-jwt-api   LoadBalancer   10.100.111.243   aa543414763be4f71ac317f0777c470a-338999307.us-west-2.elb.amazonaws.com   80:31252/TCP   12m   app=simple-jwt-api
+
+
+
+### Test endpoints
+You can either test whole endpoints through CLI or at least see the Healthy endpoint on your browser
+
+export URL="aa543414763be4f71ac317f0777c470a-338999307.us-west-2.elb.amazonaws.com"
+export TOKEN=`curl -d '{"email":"test@test.com","password":"test"}' -H "Content-Type: application/json" -X POST $URL/auth  | jq -r '.token'`
+curl --request GET $URL:80/contents -H "Authorization: Bearer ${TOKEN}" | jq
+
+
+In your brower, type 'aa543414763be4f71ac317f0777c470a-338999307.us-west-2.elb.amazonaws.com', will return 
+'''
+"Healthy"
+'''
