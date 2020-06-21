@@ -38,3 +38,12 @@ def test_auth(client):
     assert response.status_code == 200
     token = response.json['token']
     assert token is not None
+
+# this test will fail delopyment on purpose
+# tested and deployment failed. 
+# commented out to avoid devlopment fail for grading purpose
+# def test_bad_deployment(client):
+#     res = client.get('/')
+#     client.assertFalse(res.json)
+#     client.assertEqual(res.status_code, 400)
+ 
