@@ -46,9 +46,9 @@ https://github.com/jungleBadger/FSND-Deploy-Flask-App-to-Kubernetes-Using-EKS/bl
 
 ### Grab the EKS Cluster endpoint URL
 You can just fetch the URL with the command below if everything went smooth as expected
-"""
+```
 kubectl get services simple-jwt-api -o wide
-"""
+```
 
 NAME             TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)        AGE   SELECTOR
 simple-jwt-api   LoadBalancer   10.100.111.243   aa543414763be4f71ac317f0777c470a-338999307.us-west-2.elb.amazonaws.com   80:31252/TCP   12m   app=simple-jwt-api
@@ -57,13 +57,13 @@ simple-jwt-api   LoadBalancer   10.100.111.243   aa543414763be4f71ac317f0777c470
 
 ### Test endpoints
 You can either test whole endpoints through CLI or at least see the Healthy endpoint on your browser
-"""
+```
 export URL="aa543414763be4f71ac317f0777c470a-338999307.us-west-2.elb.amazonaws.com"
 export TOKEN=`curl -d '{"email":"test@test.com","password":"test"}' -H "Content-Type: application/json" -X POST $URL/auth  | jq -r '.token'`
 curl --request GET $URL:80/contents -H "Authorization: Bearer ${TOKEN}" | jq
-"""
+```
 
 In your brower, type 'aa543414763be4f71ac317f0777c470a-338999307.us-west-2.elb.amazonaws.com', will return 
-"""
+```
 "Healthy"
-"""
+```
